@@ -104,7 +104,7 @@ class Sistema:
             print("No hay productos disponibles.")
         else:
             for i, p in enumerate(self.__productos, 1):
-                print(f"{i}. {p.nombre()} - ${p.precio()} - Stock: {p.stock()}")
+                print(f"{i}. {p.nombre()} - ${p.precio()}")
 
 
 

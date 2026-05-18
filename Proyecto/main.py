@@ -30,10 +30,10 @@ for producto in productos_cargados:
 
 # Si no hay productos, agregar los productos
 if not productos_cargados:
-    sistema.productos().append(Producto("Hamburguesa clásica", 36000, 100))
-    sistema.productos().append(Producto("Papas fritas", 18000, 100))
-    sistema.productos().append(Producto("Refresco cola", 10000, 100))
-    sistema.productos().append(Producto("Hot dog", 29000, 100))
+    sistema.productos().append(Producto("Hamburguesa clásica", 36000, 200))
+    sistema.productos().append(Producto("Papas fritas", 18000, 200))
+    sistema.productos().append(Producto("Refresco cola", 10000, 200))
+    sistema.productos().append(Producto("Hot dog", 29000, 200))
     
     # Guardar productos en JSON
     guardar_productos(archivo, sistema.productos())
