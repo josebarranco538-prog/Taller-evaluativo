@@ -44,9 +44,12 @@ class Sistema:
                             selec = int(input("Seleccione el producto a agregar (numero): "))
                             if 1 <= selec <= len(self.__productos):
                                 cantidad = int(input("¿Cuántos desea llevar? "))
+                                producto_seleccionado = self.__productos[selec - 1]
                                 if cantidad > 0:
-                                    producto_seleccionado = self.__productos[selec - 1]
-                                    self.__carrito.agregar_producto(producto_seleccionado, cantidad)
+                                    if cantidad <= producto_seleccionado.stock():
+                                        self.__carrito.agregar_producto(producto_seleccionado, cantidad)
+                                    else:
+                                        print(f"Stock insuficiente. Disponibles: {producto_seleccionado.stock()}")
                                 else:
                                     print("La cantidad debe ser mayor a 0.")
                             else:
@@ -77,9 +80,16 @@ class Sistema:
                     total = self.__carrito.calcular_total()
                     print(f"Total a pagar: ${total}")
                     
-                    # Guardar la compra antes de vaciar
+                    # Guardar la compra y descontar del stock
                     if self.__carrito.productos:
                         guardar_compra(self.__archivo_compras, self.__carrito, Usuario.usuario_actual)
+                        # Descontar cantidad del stock
+                        for item in self.__carrito.productos():
+                            item.descontar_stock(item.cantidad())
+                        # Guardar productos con nuevo stock
+                        from MG_Producto import guardar_productos, definir_archivo as definir_archivo_productos
+                        archivo_productos = definir_archivo_productos()
+                        guardar_productos(archivo_productos, self.__productos)
                         print("Compra guardada.")
                     
                     self.__carrito.vaciar_carrito()
@@ -94,7 +104,7 @@ class Sistema:
             print("No hay productos disponibles.")
         else:
             for i, p in enumerate(self.__productos, 1):
-                print(f"{i}. {p.nombre()} - ${p.precio()}")
+                print(f"{i}. {p.nombre()} - ${p.precio()} - Stock: {p.stock()}")
 
 
 

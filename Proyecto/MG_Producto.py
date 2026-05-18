@@ -28,7 +28,7 @@ def cargar_productos(archivo):
     
     productos = []
     for p in productos_data:
-        producto = Producto(p["nombre"], p["precio"])
+        producto = Producto(p["nombre"], p["precio"], p.get("stock", 0))
         productos.append(producto)
     
     return productos
@@ -41,7 +41,8 @@ def guardar_productos(archivo, productos):
     for p in productos:
         productos_data.append({
             "nombre": p.nombre(),
-            "precio": p.precio()
+            "precio": p.precio(),
+            "stock": p.stock()
         })
     
     with open(archivo, "w", encoding = "utf-8") as p:
