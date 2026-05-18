@@ -36,12 +36,14 @@ class Sistema:
                     self.mostrar_productos()
 
                 case 2:
-                    agregar_otro = 's'
-                    while agregar_otro == 's':
+                    while True:
                         print("\n---- Productos ----")
                         self.mostrar_productos()
+                        print("0. Salir al menú principal")
                         try:
                             selec = int(input("Seleccione el producto a agregar (numero): "))
+                            if selec == 0:
+                                break
                             if 1 <= selec <= len(self.__productos):
                                 cantidad = int(input("¿Cuántos desea llevar? "))
                                 producto_seleccionado = self.__productos[selec - 1]
@@ -56,7 +58,6 @@ class Sistema:
                                 print("Producto no valido.")
                         except ValueError:
                             print("Entrada invalida.")
-                        agregar_otro = input("¿Desea agregar otro producto? (s/n): ").strip().lower()
 
                 case 3:
                     if Usuario.usuario_actual:
